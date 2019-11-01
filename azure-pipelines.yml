@@ -10,18 +10,6 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: Maven@2
-  displayName: 'maven deploy'
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'deploy'
-
 - task: CopyFiles@2
   displayName: 'Copy file sto : $(Build.ArtifactStagingDirectory)'
   inputs:
@@ -33,4 +21,23 @@ steps:
   displayName: 'Publish Artifact: drop'
   inputs: 
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    
+- task: DownloadSecureFile@1
+  displayName: 'Download seettings.xml secure file'
+  inputs: 
+    secureFile: 'settings.xml'
+
+- task: Maven@3
+  displayName: 'mvn deploy'
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'deploy'
+
+
     
