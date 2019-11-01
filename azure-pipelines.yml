@@ -26,7 +26,12 @@ steps:
   displayName: 'Download seettings.xml secure file'
   inputs: 
     secureFile: 'settings.xml'
-
+- task: Bash@3
+  displayName: 'Copy settings.xml secure file into !/.m2'
+  inputs: 
+    targetType: 'inline'
+    script: mkdir ~/.m2/
+    cp "$(Agent.TempDirectory)/settings.xml" ~/.m2/
 - task: Maven@3
   displayName: 'mvn deploy'
   inputs:
