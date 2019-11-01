@@ -8,20 +8,7 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
-
 steps:
-- task: CopyFiles@2
-  displayName: 'Copy file sto : $(Build.ArtifactStagingDirectory)'
-  inputs:
-    SourceFolder: '$(system.defaultworkingdirectory)'
-    Contents: '**/bin/$(BuildConfiguration)/**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
-  inputs: 
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    
 - task: DownloadSecureFile@1
   displayName: 'Download seettings.xml secure file'
   inputs: 
