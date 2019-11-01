@@ -31,12 +31,4 @@ steps:
   inputs: 
     targetType: 'inline'
     script: mkdir ~/.m2/
-    cp "$(Agent.TempDirectory)/settings.xml" ~/.m2/
-- task: Maven@3
-  displayName: 'mvn deploy'
-  inputs:
-    mavenPomFile: 'pom.xml'
-    goals: 'deploy'
-
-
-    
+    cp "$(Agent.TempDirectory)/settings.xml" ~/.m2/  
